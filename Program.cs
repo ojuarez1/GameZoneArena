@@ -2,9 +2,8 @@
 Console.WriteLine("\n");
 
 Console.WriteLine("Ingresa tu nombre ");
-String nombre;
-    nombre = Console.ReadLine();
-    Console.WriteLine("Nos alegra que estes aqui " + nombre);
+String nombre = Console.ReadLine();
+Console.WriteLine("Nos alegra que estes aqui " + nombre);
 
 Console.WriteLine("Menu\n");
 
@@ -16,16 +15,32 @@ Console.WriteLine("T04   -   Fortnite".PadRight(30) + "15.00");
 Console.WriteLine("T05   -   Valorant".PadRight(30) + "15.00\n");
 
 Console.WriteLine("Que quieres jugar hoy, elige una opcion ");
-String opcion;
-opcion = Console.ReadLine();
 
-if (opcion != opcion.ToUpper())    
+String opcion = Console.ReadLine();
+int cant = int.Parse(opcion.Substring(1,2));
+
+Console.WriteLine(cant);
+
+
+if (opcion != opcion.ToUpper() || opcion.Length != 3 || cant > 05)
+    
 {   
     Console.WriteLine("Revisa que hayas digitado bien el codigo");
-    Console.WriteLine("- La T debe ser mayuscula");
-    Console.WriteLine("- La T debe ir acompañada de dos numeros");
-    
-    opcion = Console.ReadLine();
+    if (opcion != opcion.ToUpper())
+    {
+        Console.WriteLine("- La T debe ser mayuscula");
+        opcion = Console.ReadLine();
+    }else
+    if(opcion.Length != 3)
+        {
+            Console.WriteLine("- Deben ser tres caracteres la T mayuscala y dos numeros");
+            opcion = Console.ReadLine();
+        }else
+    if(cant > 05)
+        {
+            Console.WriteLine("- El codigo digitado no se encuentra dentro del menú");
+            opcion = Console.ReadLine();
+        }
 }
 
 if (opcion == "T01")
@@ -50,7 +65,8 @@ if (opcion == "T05")
         Console.WriteLine($"Bienvenido {nombre} a Valorant\n");
     }
 
-/* String[][] menu = new String[][]
+/*
+ String[][] menu = new String[][]
 {
     new String[] {"T01", "T02", "T03", "T04", "T05"},
     new String[] {"FIFA 26", "Call of Duty", "League of Leyends", "Fortnite", "Valorant"},
