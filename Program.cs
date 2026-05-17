@@ -19,11 +19,15 @@ Console.WriteLine("Que quieres jugar hoy, elige una opcion ");
 String opcion;
 opcion = Console.ReadLine();
 
-if (opcion != opcion.ToUpper())
+if (opcion != opcion.ToUpper())    
+{   
+    Console.WriteLine("Revisa que hayas digitado bien el codigo");
+    Console.WriteLine("- La T debe ser mayuscula");
+    Console.WriteLine("- La T debe ir acompañada de dos numeros");
     
-{
-   Console.WriteLine(opcion.ToUpper()); 
-} else 
+    opcion = Console.ReadLine();
+}
+
 if (opcion == "T01")
 {
     Console.WriteLine($"Bienvenido {nombre} a la FIFA 26\n");

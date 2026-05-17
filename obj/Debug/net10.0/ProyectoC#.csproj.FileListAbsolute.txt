@@ -12,3 +12,4 @@ D:\ProyectoC#\GameZoneArena\obj\Debug\net10.0\refint\ProyectoC#.dll
 D:\ProyectoC#\GameZoneArena\obj\Debug\net10.0\ProyectoC#.pdb
 D:\ProyectoC#\GameZoneArena\obj\Debug\net10.0\ProyectoC#.genruntimeconfig.cache
 D:\ProyectoC#\GameZoneArena\obj\Debug\net10.0\ref\ProyectoC#.dll
+D:\ProyectoC#\GameZoneArena\obj\Debug\net10.0\ProyectoC#.sourcelink.json
