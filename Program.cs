@@ -2,10 +2,10 @@
 Console.WriteLine("\n");
 
 Console.WriteLine("Ingresa tu nombre ");
-String nombre = Console.ReadLine();
-Console.WriteLine("Nos alegra que estes aqui " + nombre);
+String? nombre = Console.ReadLine();
+Console.WriteLine($"Nos alegra  {nombre} que estes aqui te presentamos nuestro Catálogo de Torneos\n");
 
-Console.WriteLine("Menu\n");
+//Console.WriteLine("Catálogo de Torneos\n");
 
 Console.WriteLine("Codigo    Torneo".PadRight(30) + "Costo\n");
 Console.WriteLine("T01   -   FIFA 26".PadRight(30) + "10.00");
@@ -14,13 +14,10 @@ Console.WriteLine("T03   -   League of Leyends".PadRight(30) + "15.00");
 Console.WriteLine("T04   -   Fortnite".PadRight(30) + "15.00");
 Console.WriteLine("T05   -   Valorant".PadRight(30) + "15.00\n");
 
-Console.WriteLine("Que quieres jugar hoy, elige una opcion ");
+Console.WriteLine("A que torneo deseas inscribirte, elige una opcion digitando el codigo ");
 
-String opcion = Console.ReadLine();
-int cant = int.Parse(opcion.Substring(1,2));
-
-Console.WriteLine(cant);
-
+String? opcion = Console.ReadLine();
+int? cant = int.Parse(opcion?.Substring(1,2));
 
 if (opcion != opcion.ToUpper() || opcion.Length != 3 || cant > 05)
     
@@ -64,6 +61,47 @@ if (opcion == "T05")
     {
         Console.WriteLine($"Bienvenido {nombre} a Valorant\n");
     }
+
+String[] menu = ["1 - Registrar jugador", "2 - Mostrar reporte general", "3 - Buscar jugador por nickname", "4 - Mostrar ranking de jugadores", "5 - Mostrar tercer jugador registrado", "6 - Salir"];
+
+String? opcionMenu = "";
+
+while (opcionMenu != "Salir")
+{
+    Console.WriteLine("Menu Prncipal");
+    foreach (String item in menu)
+        {
+            Console.WriteLine(item);
+        }
+    Console.WriteLine("Digita el numero de la opcion que deseas realizar");
+    opcionMenu = Console.ReadLine();
+    if (opcionMenu == "1")
+    {
+        Console.WriteLine("Registrate\n");
+        break;
+    } else
+    if (opcionMenu == "6")
+        {
+            opcionMenu = "Salir";
+        }    
+}
+
+if (opcionMenu == "1")
+{
+    String[] registro = ["Nombre completo", "Nickname (único)", "Cantidad de torneo", "Codigo del torneo","Salir"];
+    foreach (String i in registro)
+    {
+        Console.WriteLine(i);
+        opcionMenu = Console.ReadLine();
+        if (i == "Salir")
+        {
+            break;
+        }
+    }
+    
+}
+
+
 
 /*
  String[][] menu = new String[][]
