@@ -17,9 +17,10 @@ Console.WriteLine("T05   -   Valorant".PadRight(30) + "15.00\n");
 Console.WriteLine("A que torneo deseas inscribirte, elige una opcion digitando el codigo ");
 
 String? opcion = Console.ReadLine();
-int? cant = int.Parse(opcion?.Substring(1,2));
+//String? cant = opcion.Substring(1,2);
+//int? corto = int.Parse(cant);
 
-if (opcion != opcion.ToUpper() || opcion.Length != 3 || cant > 05)
+if (opcion != opcion.ToUpper() || opcion.Length != 3)
     
 {   
     Console.WriteLine("Revisa que hayas digitado bien el codigo");
@@ -33,7 +34,6 @@ if (opcion != opcion.ToUpper() || opcion.Length != 3 || cant > 05)
             Console.WriteLine("- Deben ser tres caracteres la T mayuscala y dos numeros");
             opcion = Console.ReadLine();
         }else
-    if(cant > 05)
         {
             Console.WriteLine("- El codigo digitado no se encuentra dentro del menú");
             opcion = Console.ReadLine();
@@ -43,26 +43,7 @@ if (opcion != opcion.ToUpper() || opcion.Length != 3 || cant > 05)
 if (opcion == "T01")
 {
     Console.WriteLine($"Bienvenido {nombre} a la FIFA 26\n");
-    
-} else
-if (opcion == "T02")
-    {
-        Console.WriteLine($"Bienvenido {nombre} a Call of Duty\n");
-    } else
-if (opcion == "T03")
-    {
-        Console.WriteLine($"Bienvenido {nombre} a League of Leyends\n");
-    } else
-if (opcion == "T04")
-    {
-        Console.WriteLine($"Bienvenido {nombre} a Fortnite\n");
-    } else
-if (opcion == "T05")
-    {
-        Console.WriteLine($"Bienvenido {nombre} a Valorant\n");
-    }
-
-String[] menu = ["1 - Registrar jugador", "2 - Mostrar reporte general", "3 - Buscar jugador por nickname", "4 - Mostrar ranking de jugadores", "5 - Mostrar tercer jugador registrado", "6 - Salir"];
+    String[] menu = ["1 - Registrar jugador", "2 - Mostrar reporte general", "3 - Buscar jugador por nickname", "4 - Mostrar ranking de jugadores", "5 - Mostrar tercer jugador registrado", "6 - Salir"];
 
 String? opcionMenu = "";
 
@@ -100,6 +81,31 @@ if (opcionMenu == "1")
     }
     
 }
+    
+} else
+if (opcion == "T02")
+    {
+        Console.WriteLine($"Bienvenido {nombre} a Call of Duty\n");
+        
+    } else
+if (opcion == "T03")
+    {
+        Console.WriteLine($"Bienvenido {nombre} a League of Leyends\n");
+    } else
+if (opcion == "T04")
+    {
+        Console.WriteLine($"Bienvenido {nombre} a Fortnite\n");
+    } else
+if (opcion == "T05")
+    {
+        Console.WriteLine($"Bienvenido {nombre} a Valorant\n");
+    } else
+        {
+            Console.WriteLine($"Lo sentimos pero el codgo {opcion} no es correcto");
+            Console.WriteLine("Vuelve a intentarlo");
+        }
+
+
 
 
 
