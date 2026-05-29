@@ -18,71 +18,67 @@ Console.WriteLine("A que torneo deseas inscribirte, elige una opcion digitando e
 
 String? opcion = Console.ReadLine();
 //String? cant = opcion.Substring(1,2);
-//int? corto = int.Parse(cant);
+String? cant2 = opcion.Substring(opcion.Length - 2);
+Console.WriteLine(cant2);
+bool verdadero = false;
 
-if (opcion != opcion.ToUpper() || opcion.Length != 3)
-    
-{   
-    Console.WriteLine("Revisa que hayas digitado bien el codigo");
-    if (opcion != opcion.ToUpper())
-    {
-        Console.WriteLine("- La T debe ser mayuscula");
+do{
+if(!int.TryParse(cant2, out int numero))
+{
+        Console.WriteLine("No eres un número");
         opcion = Console.ReadLine();
-    }else
-    if(opcion.Length != 3)
+        cant2 = opcion.Substring(opcion.Length - 2);
+    } else
+    {
+        Console.WriteLine("Sí es un número: " + numero);
+        if(numero > 5)
         {
-            Console.WriteLine("- Deben ser tres caracteres la T mayuscala y dos numeros");
+            Console.WriteLine("El codio digitado no esta dentro del menu");
             opcion = Console.ReadLine();
+            cant2 = opcion.Substring(opcion.Length - 2);
         }else
-        {
-            Console.WriteLine("- El codigo digitado no se encuentra dentro del menú");
-            opcion = Console.ReadLine();
+        if(numero <= 0)
+            {
+                Console.WriteLine("El codio digitado no esta dentro del menu");
+                opcion = Console.ReadLine();
+                cant2 = opcion.Substring(opcion.Length - 2);
+            }
+            else
+            {
+            do{
+            if (opcion != opcion.ToUpper() || opcion.Length != 3)
+    
+            {   
+
+            Console.WriteLine($"Revisa que hayas digitado bien el codigo {cant2}");
+            if (opcion != opcion.ToUpper())
+            {
+                Console.WriteLine("- La T debe ser mayuscula");
+                opcion = Console.ReadLine();
+                cant2 = opcion.Substring(opcion.Length - 2);
+            }else
+            if(opcion.Length != 3)
+                {
+                    Console.WriteLine("- Deben ser tres caracteres la T mayuscala y dos numeros");
+                    opcion = Console.ReadLine();
+                    cant2 = opcion.Substring(opcion.Length - 2);
+                 }
+                           
+                           
+            }
+            } while(opcion != opcion.ToUpper() || opcion.Length != 3);
+            verdadero = true;
         }
-}
+    }
+}while(verdadero == false);
+
+
 
 if (opcion == "T01")
 {
     Console.WriteLine($"Bienvenido {nombre} a la FIFA 26\n");
-    String[] menu = ["1 - Registrar jugador", "2 - Mostrar reporte general", "3 - Buscar jugador por nickname", "4 - Mostrar ranking de jugadores", "5 - Mostrar tercer jugador registrado", "6 - Salir"];
-
-String? opcionMenu = "";
-
-while (opcionMenu != "Salir")
-{
-    Console.WriteLine("Menu Prncipal");
-    foreach (String item in menu)
-        {
-            Console.WriteLine(item);
-        }
-    Console.WriteLine("Digita el numero de la opcion que deseas realizar");
-    opcionMenu = Console.ReadLine();
-    if (opcionMenu == "1")
-    {
-        Console.WriteLine("Registrate\n");
-        break;
-    } else
-    if (opcionMenu == "6")
-        {
-            opcionMenu = "Salir";
-        }    
-}
-
-if (opcionMenu == "1")
-{
-    String[] registro = ["Nombre completo", "Nickname (único)", "Cantidad de torneo", "Codigo del torneo","Salir"];
-    foreach (String i in registro)
-    {
-        Console.WriteLine(i);
-        opcionMenu = Console.ReadLine();
-        if (i == "Salir")
-        {
-            break;
-        }
-    }
     
-}
-    
-} else
+}else
 if (opcion == "T02")
     {
         Console.WriteLine($"Bienvenido {nombre} a Call of Duty\n");
@@ -99,13 +95,72 @@ if (opcion == "T04")
 if (opcion == "T05")
     {
         Console.WriteLine($"Bienvenido {nombre} a Valorant\n");
-    } else
+    }
+
+String? opcionMenu;
+
+do{
+String[] menu = ["1 - Registrar jugador", "2 - Mostrar reporte general", "3 - Buscar jugador por nickname", "4 - Mostrar ranking de jugadores", "5 - Mostrar tercer jugador registrado", "6 - Salir"];
+
+
+    Console.WriteLine("Menu Prncipal");
+    foreach (String item in menu)
         {
-            Console.WriteLine($"Lo sentimos pero el codgo {opcion} no es correcto");
-            Console.WriteLine("Vuelve a intentarlo");
+            Console.WriteLine(item);
         }
+    Console.WriteLine("Digita el numero de la opcion que deseas realizar");
+    opcionMenu = Console.ReadLine();
+    if (opcionMenu == "1")
+    {
+        List<String> acumular = new List<String>();
+        Console.WriteLine("Registrate\n");
+        String[] registro = ["Nombre completo", "Nickname (único)", "Cantidad de torneo", "Codigo del torneo","Resultado por torneo/ Enter para elegir opcion","Salir"];
+        foreach (String i in registro)
+        {
+            Console.WriteLine(i);
+            opcionMenu = Console.ReadLine();
+            if (i == "Resultado por torneo/ Enter para elegir opcion")
+            {
+                Console.WriteLine("Digitar 1 si participó");
+                Console.WriteLine("Digitar 2 si ganó\n");
+                String? resultado = Console.ReadLine();
+                acumular.Add(resultado);
+                Console.WriteLine(acumular);
+            } else
+            if (i == "Salir")
+            {
+                opcionMenu = i;
+                break;
+            }
+        } 
+        break;
 
-
+    } if (opcionMenu == "2")
+    {
+        Console.WriteLine("Reporte general\n");
+        break;
+    } if (opcionMenu == "3")
+    {
+        Console.WriteLine("Jugador por nickname\n");
+        break;
+    } if (opcionMenu == "4")
+    {
+        Console.WriteLine("Ranking de jugadores\n");
+        break;
+    } if (opcionMenu == "5")
+    {
+        Console.WriteLine("Rercer jugador registrado\n");
+        break;
+    } if (opcionMenu == "6")
+        {
+            break;
+        }else
+    {
+        Console.WriteLine("El numero digitado no se encuentra en el menú");
+        Console.WriteLine("Intentalo nuevamente");
+        opcionMenu = Console.ReadLine();
+    } 
+} while(opcionMenu != "Salir");
 
 
 
