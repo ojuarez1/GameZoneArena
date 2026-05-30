@@ -7,12 +7,12 @@ Console.WriteLine("\n");
 
 Console.WriteLine("Ingresa tu nombre ");
 String? nombre = Console.ReadLine();
-Console.WriteLine($"Nos alegra  {nombre} que estes aqui te presentamos nuestro Catálogo de Torneos\n");
+Console.WriteLine($"Nos alegra  {nombre} que estes aqui te presentamos nuestro Menú\n");
 
 
 /******* MUESTRA EN CONSOLA EL MENU CON LAS OPCIONES DEL TORNEO A ELEGIR *******/
 
-Console.WriteLine("Codigo    Torneo".PadRight(30) + "Costo\n");
+/*Console.WriteLine("Codigo    Torneo".PadRight(30) + "Costo\n");
 Console.WriteLine("T01   -   FIFA 26".PadRight(30) + "10.00");
 Console.WriteLine("T02   -   Call of Duty".PadRight(30) + "15.00");
 Console.WriteLine("T03   -   League of Leyends".PadRight(30) + "15.00");
@@ -21,10 +21,11 @@ Console.WriteLine("T05   -   Valorant".PadRight(30) + "15.00\n");
 
 Console.WriteLine("A que torneo deseas inscribirte, elige una opcion digitando el codigo ");
 String? opcion = Console.ReadLine();
-
+*/
 
 /******* VALIDACIONES DEL MENU DE TORNEOS *******/
 
+/*
 String? cant2 = opcion.Substring(opcion.Length - 2);
 bool verdadero = false;
 
@@ -67,9 +68,11 @@ do{
         
 }while(verdadero == false);
 
+*/
 
 /******* SI SE HA DIGITADO CORRECTAMENTE EL CODIGO, AQUI SELECCIONA EL NOMBRE DEL TORNEO  *******/
 
+/*
 String[] codigo = {"T01", "T02", "T03", "T04", "T05"};
 String[] main =  {"FIFA 26", "Call of Duty", "League of Leyends", "Fortnite", "Valorant"};
 int cuenta=0;
@@ -83,7 +86,7 @@ foreach (String item in codigo)
     }
     cuenta++;
 }
-
+*/
 
 /******* VALIDACIONES DEL MENU PRINCIPAL *******/
 
@@ -134,7 +137,7 @@ do{
     {
         //List<String> acumular = new List<String>();
         Console.WriteLine("Registrate\n");
-        String[] registro = ["Nombre completo", "Nickname (único)", "Cantidad de torneo", "Codigo del torneo","Resultado por torneo","Salir"];
+        String[] registro = ["Nombre completo", "Nickname (único)", "Cantidad de torneo", "Codigo del torneo","Resultado por torneo"];
         foreach (String i in registro)
         {
             Console.WriteLine(i);
@@ -159,20 +162,120 @@ do{
                     }                   
                 } while(name == false);
             }else
+            if (i == "Cantidad de torneo")
+            {
+                opcionMenu = Console.ReadLine();
+                bool sale = false;
+                do
+                {
+                    if (!int.TryParse(opcionMenu, out int dato))
+                    {
+                        Console.WriteLine("Solo se permiten numeros");
+                        opcionMenu = Console.ReadLine();
+                    }else
+                    if (dato < 1)
+                    {
+                        Console.WriteLine("Debes digitar almenos 1");
+                        opcionMenu = Console.ReadLine();
+                    }else
+                    if (dato > 5)
+                    {
+                        Console.WriteLine("Máximo permitido 5");
+                        opcionMenu = Console.ReadLine();
+                    }else
+                    if(opcionMenu.Contains(" "))
+                    {
+                        Console.WriteLine("No debe contener espacios vacios");
+                        opcionMenu = Console.ReadLine();
+                    }else
+                    {
+                        sale=true;
+                    }
+                } while(sale==false);              
+    }else
+            if (i == "Codigo del torneo")
+            {
+                Console.WriteLine("Codigo    Torneo".PadRight(30) + "Costo\n");
+                Console.WriteLine("T01   -   FIFA 26".PadRight(30) + "10.00");
+                Console.WriteLine("T02   -   Call of Duty".PadRight(30) + "15.00");
+                Console.WriteLine("T03   -   League of Leyends".PadRight(30) + "15.00");
+                Console.WriteLine("T04   -   Fortnite".PadRight(30) + "15.00");
+                Console.WriteLine("T05   -   Valorant".PadRight(30) + "15.00\n");
+
+                Console.WriteLine("A que torneo deseas inscribirte, elige una opcion digitando el codigo ");
+                opcionMenu = Console.ReadLine();
+                String? cant2 = opcionMenu.Substring(opcionMenu.Length - 2);
+                bool verdadero = false;
+
+                do{
+                    if(!int.TryParse(cant2, out int numero))
+                    {
+                        Console.WriteLine("Los dos caracteres despues de la T deben ser numeros");
+                        opcionMenu = Console.ReadLine();
+                        cant2 = opcionMenu.Substring(opcionMenu.Length - 2);
+
+                    } else
+                    if(numero > 5)
+                    {
+                        Console.WriteLine("El codio digitado no esta dentro del menu");
+                        opcionMenu = Console.ReadLine();
+                        cant2 = opcionMenu.Substring(opcionMenu.Length - 2);
+                    }else
+                    if(numero <= 0)
+                    {
+                        Console.WriteLine("El codio digitado no esta dentro del menu");
+                        opcionMenu = Console.ReadLine();
+                        cant2 = opcionMenu.Substring(opcionMenu.Length - 2);
+                    }else
+                    if(opcionMenu.Length != 3)
+                    {
+                        Console.WriteLine("- Deben ser tres caracteres la T mayuscala y dos numeros");
+                        opcionMenu = Console.ReadLine();
+                        cant2 = opcionMenu.Substring(opcionMenu.Length - 2);
+                    }
+                    else
+                    if (opcionMenu != opcionMenu.ToUpper())
+                    {
+                    Console.WriteLine("- La T debe ser mayuscula");
+                        opcionMenu = Console.ReadLine();
+                        cant2 = opcionMenu.Substring(opcionMenu.Length - 2); 
+                    }else
+                    {
+                        verdadero = true;
+                    }
+                        
+                }while(verdadero == false);
+
+                String[] codigo = {"T01", "T02", "T03", "T04", "T05"};
+                String[] main =  {"FIFA 26", "Call of Duty", "League of Leyends", "Fortnite", "Valorant"};
+                int cuenta=0;
+
+                foreach (String item in codigo)
+                {
+                    if (opcionMenu == item)
+                    {
+                        Console.WriteLine($"{nombre} te has inscrito al torneo {main[cuenta]}\n");
+                        break;
+                    }
+                    cuenta++;
+                }
+
+            }else
             if (i == "Resultado por torneo")
             {
-                Console.WriteLine("Digitar 1 si participó");
-                Console.WriteLine("Digitar 2 si ganó\n");
-                opcionMenu = Console.ReadLine();                
-            } else
-            if (i == "Salir")
-            {
-                opcionMenu = i;
-                break;
-            }
+                Console.WriteLine("o 1 = participó");
+                Console.WriteLine("o 2 = ganó\n");
+                opcionMenu = Console.ReadLine();
+                do
+                {
+                    Console.WriteLine("Solo se permite 1 o 2, digita una de estas 2 opciones");
+                    opcionMenu = Console.ReadLine();
+                } while(opcionMenu != "1" && opcionMenu != "2");              
+            }            
         } 
+        Console.WriteLine("Tu registro se ha completado");
         break;
-
+        
     } if (opcionMenu == "2")
     {
         Console.WriteLine("Reporte general\n");
@@ -187,7 +290,7 @@ do{
         break;
     } if (opcionMenu == "5")
     {
-        Console.WriteLine("Rercer jugador registrado\n");
+        Console.WriteLine("Tercer jugador registrado\n");
         break;
     } if (opcionMenu == "6")
         {
