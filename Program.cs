@@ -223,36 +223,47 @@ do{
 
 using ProyectoTorneo;
 
-Console.WriteLine("Ingresa tu nombre:");
+Console.WriteLine("Ingresa tu nombre de Usuario:");
 string? nombre = Console.ReadLine();
 
 Console.WriteLine($"Nos alegra {nombre} que estés aquí\n");
 
-string opcion = Modulos.MostrarMenu();
-
-switch(opcion)
+string opcion;
+do
 {
-    case "1":
-        Modulos.RegistrarJugador(nombre);
-        break;
+        opcion = Modulos.MostrarMenu();
 
-    case "2":
-        Modulos.MostrarReporteGeneral();
-        break;
+    switch(opcion)
+    {
+        case "1":
+            Modulos.RegistrarJugador(nombre);
+            break;
 
-    case "3":
-        Modulos.BusquedaNickname();
-        break;
+        case "2":
+            Reportes.MostrarReporteGeneral();
+            break;
 
-    case "4":
-        Modulos.MostrarRanking();
-        break;
+        case "3":
+            Modulos.BusquedaNickname();
+            break;
 
-    case "5":
-        Modulos.MostrarTercerJugador();
-        break;
+        case "4":
+            Modulos.MostrarRanking();
+            break;
 
-    case "6":
-        Console.WriteLine("Saliendo...");
-        break;
-}
+        case "5":
+            Modulos.MostrarTercerJugador();
+            break;
+
+        case "6":
+            Console.WriteLine("Saliendo del Sistema...");
+            break;
+    }        
+        if (opcion != "6")
+        {
+            Console.WriteLine("\nPrecione una tecla para continuar :D !!!");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        
+} while (opcion != "6");

@@ -2,6 +2,14 @@ namespace ProyectoTorneo;
 
 public static class Modulos
 {
+    static Dictionary<string, double> torneos = new()
+    {
+        {"T01", 10.00},
+        {"T02", 15.00},
+        {"T03", 20.00},
+        {"T04", 12.00},
+        {"T05", 18.00},
+    };
     public static string MostrarMenu()
     {
         string[] menu =
@@ -14,7 +22,7 @@ public static class Modulos
             "6 - Salir"
         };
 
-        Console.WriteLine("MENÚ PRINCIPAL");
+        Console.WriteLine("\nMENÚ PRINCIPAL"); //agregue un salto de linea al inicio
 
         foreach(string item in menu)
         {
@@ -25,7 +33,7 @@ public static class Modulos
 
         do
         {
-            Console.WriteLine("Digite una opción:");
+            Console.WriteLine("Digite una opción: "); //Agregue un espacio despues del :
             opcion = Console.ReadLine();
 
         } while(!ValidarMenu(opcion));
@@ -46,7 +54,7 @@ public static class Modulos
 
     public static void RegistrarJugador(string? nombre)
     {
-        Console.WriteLine("Registro de jugador");
+        Console.WriteLine("Registro de jugador"); //agregue un salto de linea al inicio
 
         string nombreCompleto = SolicitarNombre();
 
@@ -54,16 +62,63 @@ public static class Modulos
 
         int cantidadTorneos = SolicitarCantidadTorneos();
 
-        string codigo = SolicitarCodigoTorneo();
+        //Inicializando listas de Torneos seleccionados y resultados si gano o solo participo
+        //Inicio
+        List<string> torneosSeleccionados =  new();
+        List<int> resultados = new();
 
-        string resultado = SolicitarResultado();
+        for(int i = 0; i < cantidadTorneos; i++)
+        {
+            Console.WriteLine($"\nTorneo #{i + 1}");
+            string codigo = SolicitarCodigoTorneo();
+            torneosSeleccionados.Add(codigo);
 
-        Console.WriteLine($"{nombre} se registró correctamente.");
+            int resultado = Convert.ToInt32(SolicitarResultado());
+            resultados.Add(resultado);
+        }
+        
+
+        //string codigo = SolicitarCodigoTorneo();
+
+        //string resultado = SolicitarResultado();
+
+        //Console.WriteLine($"{nombre} se registró correctamente.");
+
+        double subtotal = Calculos.CalcularSubtotal(torneos, torneosSeleccionados);
+        double descuento = Calculos.CalcularPorcentajeDescuento(torneosSeleccionados);
+        double totalFinal = Calculos.CalcularTotalFinal(subtotal, descuento);
+        string clasificacion = Calculos.ObtenerClasificacion(totalFinal);
+        int puntos = Calculos.CalcularPuntos(resultados);
+
+        Jugador jugador = new()
+        {
+            NombreCompleto = nombreCompleto,
+            Nickname = nickname,
+            Resultados = resultados,
+            Subtotal = subtotal,
+            Descuento = descuento,
+            TotalFinal = totalFinal,
+            Clasificacion = clasificacion,
+            Puntos = puntos
+
+        };
+        Datos.Jugadores.Add(jugador);
+
+        Console.WriteLine("\n'''''' REPORTE ''''''");
+        Console.WriteLine($"Nombre: {nombreCompleto}");
+        Console.WriteLine($"Nickname: {nickname}");
+        Console.WriteLine($"Subtotal: ${subtotal:F2}");
+        Console.WriteLine($"Descuento: {descuento}%");
+        Console.WriteLine($"Total Final: ${totalFinal:F2}");
+        Console.WriteLine($"Clasificación: {clasificacion}");
+        Console.WriteLine($"Puntos: {puntos}");
+
+        Console.WriteLine($"\n{nombre} registró correctamente al jugador.");
     }
-
+// Fin
     public static string SolicitarNombre()
     {
-        Console.WriteLine("Nombre completo:");
+        Console.WriteLine("Nombre completo: ");
         return Console.ReadLine()!;
     }
 
@@ -141,23 +196,60 @@ public static class Modulos
         return resultado!;
     }
 
-    public static void MostrarReporteGeneral()
+    public static void BusquedaNickname() //meotodo implementado
     {
-        Console.WriteLine("Reporte general");
+        Console.WriteLine("\n!!!BUSCAR JUGADOR!!!");
+        Console.Write("Ingrese el nickname: ");
+        string? nickname = Console.ReadLine();
+
+        Jugador? jugador = Datos.Jugadores.FirstOrDefault(j=>j.Nickname.Equals(nickname!, StringComparison.OrdinalIgnoreCase));
+
+        if (jugador == null)
+        {
+            Console.WriteLine("Jugador no encontrado.");
+            return;
+        }
+
+        Console.WriteLine("\n*** JUGADOR ENCONTRADO ***");
+        Console.WriteLine($"Nombre: {jugador.NombreCompleto}");
+        Console.WriteLine($"Nickname: {jugador.Nickname}");
+        Console.WriteLine($"Puntos: {jugador.Puntos}");
+        Console.WriteLine($"Clasificacion: {jugador.Clasificacion}");
     }
 
-    public static void BusquedaNickname()
+    public static void MostrarRanking() //meotodo implementado
     {
-        Console.WriteLine("Buscar jugador");
+        Console.WriteLine("\n!!!RANKING DE JUGADORES!!!");
+        if (Datos.Jugadores.Count == 0)
+        {
+            Console.WriteLine("No existen jugadores registrados");
+            return;
+        }
+        List<Jugador> ranking = Datos.Jugadores.OrderByDescending(j => j.Puntos).ToList();
+
+        int posicion = 1;
+        foreach (Jugador jugador in ranking)
+        {
+            Console.WriteLine($"{posicion}. {jugador.Nickname} - {jugador.Puntos} puntos :D");
+            posicion++;
+        }
     }
 
-    public static void MostrarRanking()
+    public static void MostrarTercerJugador() //meotodo implementado
     {
-        Console.WriteLine("Ranking");
-    }
+        Console.WriteLine("\n!!!MOSTRAR JUGADOR REGISTRADO!!!");
 
-    public static void MostrarTercerJugador()
-    {
-        Console.WriteLine("Tercer jugador");
+        if (Datos.Jugadores.Count < 3)
+        {
+            Console.WriteLine("Todavia no existen 3 jugadores registrados!");
+            return;
+        }
+
+        Jugador jugador = Datos.Jugadores[2];
+        Console.WriteLine($"Nombre: {jugador.NombreCompleto}");
+        Console.WriteLine($"Nickname: {jugador.Nickname}");
+        Console.WriteLine($"Puntos: {jugador.Puntos}");
+        Console.WriteLine($"Clasificación: {jugador.Clasificacion}");
+
     }
 }
