@@ -1,8 +1,11 @@
+using ProyectoTorneo;
 namespace ProyectoTorneo;
 
 public static class Modulos
 {
-    static Dictionary<string, double> torneos = new()
+    static Dictionary<string, double> torneos = new() //Este es un diccionario de onde se estan tomando 
+                                                        // los precios
+                                                        // segun el codigo que se dijite del tipo de torneo
     {
         {"T01", 10.00},
         {"T02", 15.00},
@@ -77,23 +80,19 @@ public static class Modulos
             resultados.Add(resultado);
         }
         
-
-        //string codigo = SolicitarCodigoTorneo();
-
-        //string resultado = SolicitarResultado();
-
-        //Console.WriteLine($"{nombre} se registró correctamente.");
-
+        //Haciendo los calculos y guardandolo en variables
         double subtotal = Calculos.CalcularSubtotal(torneos, torneosSeleccionados);
         double descuento = Calculos.CalcularPorcentajeDescuento(torneosSeleccionados);
         double totalFinal = Calculos.CalcularTotalFinal(subtotal, descuento);
         string clasificacion = Calculos.ObtenerClasificacion(totalFinal);
         int puntos = Calculos.CalcularPuntos(resultados);
 
+        //Creando Jugador
         Jugador jugador = new()
         {
             NombreCompleto = nombreCompleto,
             Nickname = nickname,
+            Torneos = torneosSeleccionados,
             Resultados = resultados,
             Subtotal = subtotal,
             Descuento = descuento,
@@ -102,6 +101,7 @@ public static class Modulos
             Puntos = puntos
 
         };
+        //Agregando jugador a estructura de data
         Datos.Jugadores.Add(jugador);
 
         Console.WriteLine("\n'''''' REPORTE ''''''");
@@ -113,7 +113,7 @@ public static class Modulos
         Console.WriteLine($"Clasificación: {clasificacion}");
         Console.WriteLine($"Puntos: {puntos}");
 
-        Console.WriteLine($"\n{nombre} registró correctamente al jugador.");
+        Console.WriteLine($"\n{nombre} registró correctamente al jugador {jugador.NombreCompleto}.");
     }
 // Fin
     public static string SolicitarNombre()
@@ -202,8 +202,12 @@ public static class Modulos
         Console.Write("Ingrese el nickname: ");
         string? nickname = Console.ReadLine();
 
+        //Busca en la losta de jugadores el primero que encuentre con el nickname que se pasa por consola
+        //Tambien se esta aplicando un ignorecase por si este lleva mayusculas y minusculas
+        //Dame el primer elemento que cumpla con la condicion si no encuentras nada devuelve null
         Jugador? jugador = Datos.Jugadores.FirstOrDefault(j=>j.Nickname.Equals(nickname!, StringComparison.OrdinalIgnoreCase));
 
+        //Si jugador devuelve null
         if (jugador == null)
         {
             Console.WriteLine("Jugador no encontrado.");
@@ -225,9 +229,14 @@ public static class Modulos
             Console.WriteLine("No existen jugadores registrados");
             return;
         }
+        //Toma todos los jugadores y ordenalos de mayor a menor, segun sus puntos
+        //la lamban lo que hace es asignarle los puntos a cada jugador encontrado y 
+        // de esta manera podes hacer el orden de forma decendente, y el resultado lo retorna en una lista llamada ranking
         List<Jugador> ranking = Datos.Jugadores.OrderByDescending(j => j.Puntos).ToList();
 
         int posicion = 1;
+        //Aqui se recorremos todos los jugadores que estan en la lista ranking, y muestra el primer elemento que por el 
+        // metodo anterior es el numero uno con la mayor cantidad de puntos, luego va con el dos y luego el 3...
         foreach (Jugador jugador in ranking)
         {
             Console.WriteLine($"{posicion}. {jugador.Nickname} - {jugador.Puntos} puntos :D");
@@ -238,7 +247,7 @@ public static class Modulos
     public static void MostrarTercerJugador() //meotodo implementado
     {
         Console.WriteLine("\n!!!MOSTRAR JUGADOR REGISTRADO!!!");
-
+        //Si no hay mas de 3 jugadores entonces no muestra ningun resultado
         if (Datos.Jugadores.Count < 3)
         {
             Console.WriteLine("Todavia no existen 3 jugadores registrados!");

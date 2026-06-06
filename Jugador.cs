@@ -1,3 +1,4 @@
+using ProyectoTorneo;
 public class Jugador
 {
     public string NombreCompleto {get ; set; } = "";

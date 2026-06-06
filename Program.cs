@@ -1,6 +1,9 @@
 ﻿using ProyectoTorneo;
-
-Console.WriteLine("Ingresa tu nombre de Usuario:");
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Ingresa tu nombre de Usuario:");
 string? nombre = Console.ReadLine();
 
 Console.WriteLine($"Nos alegra {nombre} que estés aquí\n");
@@ -44,3 +47,5 @@ do
         }
         
 } while (opcion != "6");
+    }
+}
