@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProyectoC#\\GameZoneArena\\ProyectoC#.csproj": {}
+    "C:\\Proyectos\\GameZoneArena\\ProyectoC#.csproj": {}
   },
   "projects": {
-    "D:\\ProyectoC#\\GameZoneArena\\ProyectoC#.csproj": {
+    "C:\\Proyectos\\GameZoneArena\\ProyectoC#.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProyectoC#\\GameZoneArena\\ProyectoC#.csproj",
+        "projectUniqueName": "C:\\Proyectos\\GameZoneArena\\ProyectoC#.csproj",
         "projectName": "ProyectoC#",
-        "projectPath": "D:\\ProyectoC#\\GameZoneArena\\ProyectoC#.csproj",
-        "packagesPath": "C:\\Users\\MINEDUCYT\\.nuget\\packages\\",
-        "outputPath": "D:\\ProyectoC#\\GameZoneArena\\obj\\",
+        "projectPath": "C:\\Proyectos\\GameZoneArena\\ProyectoC#.csproj",
+        "packagesPath": "C:\\Users\\Erick\\.nuget\\packages\\",
+        "outputPath": "C:\\Proyectos\\GameZoneArena\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\MINEDUCYT\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Erick\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
