@@ -57,6 +57,8 @@ public static class Modulos
 
     public static void RegistrarJugador(string? nombre)
     {
+        Jugador jugador = new Jugador();
+
         Console.WriteLine("Registro de jugador"); //agregue un salto de linea al inicio
 
         string nombreCompleto = SolicitarNombre();
@@ -73,7 +75,7 @@ public static class Modulos
         for(int i = 0; i < cantidadTorneos; i++)
         {
             Console.WriteLine($"\nTorneo #{i + 1}");
-            string codigo = SolicitarCodigoTorneo();
+            string codigo = SolicitarCodigoTorneo(jugador);
             torneosSeleccionados.Add(codigo);
 
             int resultado = Convert.ToInt32(SolicitarResultado());
@@ -88,7 +90,7 @@ public static class Modulos
         int puntos = Calculos.CalcularPuntos(resultados);
 
         //Creando Jugador
-        Jugador jugador = new()
+        jugador = new()
         {
             NombreCompleto = nombreCompleto,
             Nickname = nickname,
@@ -122,7 +124,7 @@ public static class Modulos
         return Console.ReadLine()!;
     }
 
-    public static string SolicitarNickname()
+    /*public static string SolicitarNickname()
     {
         string[] apodos = { "Oscar", "Jason", "Erick" };
 
@@ -139,6 +141,26 @@ public static class Modulos
             Console.WriteLine("Ese nickname ya existe.");
 
         } while(true);
+
+    }*/
+    public static string SolicitarNickname()
+    {
+        string? nickname;
+        do
+        {
+            Console.WriteLine("Dijite su NickName: ");
+            nickname = Console.ReadLine();
+
+            if(Datos.ApodosExistentes.Contains(nickname))
+            {
+                Console.WriteLine("Este NickName ya Existe.");
+            }
+            else
+            {
+                Datos.ApodosExistentes.Add(nickname);
+                return nickname;
+            }
+        }while(true);
     }
 
     public static int SolicitarCantidadTorneos()
@@ -156,7 +178,7 @@ public static class Modulos
         return cantidad;
     }
 
-    public static string SolicitarCodigoTorneo()
+    /*public static string SolicitarCodigoTorneo()
     {
         Console.WriteLine("T01 - FIFA 26");
         Console.WriteLine("T02 - Call of Duty");
@@ -178,6 +200,44 @@ public static class Modulos
                 codigo != "T05");
 
         return codigo!;
+    }*/
+
+    public static string SolicitarCodigoTorneo(Jugador jugador)
+    {
+        string? codigo;
+        do
+        {
+        Console.WriteLine("Codigo\tNombre");
+        foreach (var torneo in Datos.Torneos)
+        {
+            
+            Console.WriteLine($"{torneo.Codigo} - {torneo.Nombre}");
+        }
+        
+        
+            Console.WriteLine("Digite el Codigo de Torneo: ");
+            codigo = Console.ReadLine()?.ToUpper();
+            
+            bool existe = Datos.Torneos.Any(t => t.Codigo == codigo); //Existe algun codigo en la lista, 
+                                                                        // iagual al que ingreso el usuario
+
+            if (existe)
+            {
+                Console.WriteLine("Este Codigo no existe!!!");
+                continue;
+            }else if (jugador.Torneos.Contains(codigo))
+            {
+                Console.WriteLine("Este torneo ya fue registro para este jugador!!!");
+                continue;
+            }else{
+            jugador.Torneos.Add(codigo);
+            }
+            return codigo;
+
+
+        }while(true);
+
+        //return codigo!;
     }
 
     public static string SolicitarResultado()
