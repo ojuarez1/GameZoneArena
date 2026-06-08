@@ -151,14 +151,14 @@ public static class Modulos
             Console.WriteLine("Dijite su NickName: ");
             nickname = Console.ReadLine();
 
-            if(Datos.ApodosExistentes.Contains(nickname))
+            if(Datos.ApodosExistentes.Contains(nickname!)) //Con el signo ! le dices al copilador, confia en mi esto no sera null
             {
                 Console.WriteLine("Este NickName ya Existe.");
             }
             else
             {
-                Datos.ApodosExistentes.Add(nickname);
-                return nickname;
+                Datos.ApodosExistentes.Add(nickname!);
+                return nickname!;
             }
         }while(true);
     }
@@ -225,14 +225,14 @@ public static class Modulos
             {
                 Console.WriteLine("Este Codigo no existe!!!");
                 continue;
-            }else if (jugador.Torneos.Contains(codigo))
+            }else if (jugador.Torneos.Contains(codigo!))
             {
                 Console.WriteLine("Este torneo ya fue registro para este jugador!!!");
                 continue;
             }else{
-            jugador.Torneos.Add(codigo);
+            jugador.Torneos.Add(codigo!);
             }
-            return codigo;
+            return codigo!;
 
 
         }while(true);
