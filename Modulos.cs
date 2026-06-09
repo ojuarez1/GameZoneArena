@@ -59,7 +59,7 @@ public static class Modulos
     {
         Jugador jugador = new Jugador();
 
-        Console.WriteLine("Registro de jugador"); //agregue un salto de linea al inicio
+        Console.WriteLine("Registro de jugador");
 
         string nombreCompleto = SolicitarNombre();
 
@@ -123,26 +123,6 @@ public static class Modulos
         Console.WriteLine("Nombre completo: ");
         return Console.ReadLine()!;
     }
-
-    /*public static string SolicitarNickname()
-    {
-        string[] apodos = { "Oscar", "Jason", "Erick" };
-
-        string? nickname;
-
-        do
-        {
-            Console.WriteLine("Nickname:");
-            nickname = Console.ReadLine();
-
-            if(!apodos.Contains(nickname))
-                return nickname!;
-
-            Console.WriteLine("Ese nickname ya existe.");
-
-        } while(true);
-
-    }*/
     public static string SolicitarNickname()
     {
         string? nickname;
@@ -177,31 +157,6 @@ public static class Modulos
 
         return cantidad;
     }
-
-    /*public static string SolicitarCodigoTorneo()
-    {
-        Console.WriteLine("T01 - FIFA 26");
-        Console.WriteLine("T02 - Call of Duty");
-        Console.WriteLine("T03 - League of Legends");
-        Console.WriteLine("T04 - Fortnite");
-        Console.WriteLine("T05 - Valorant");
-
-        string? codigo;
-
-        do
-        {
-            Console.WriteLine("Código:");
-            codigo = Console.ReadLine()?.ToUpper();
-
-        } while(codigo != "T01" &&
-                codigo != "T02" &&
-                codigo != "T03" &&
-                codigo != "T04" &&
-                codigo != "T05");
-
-        return codigo!;
-    }*/
-
     public static string SolicitarCodigoTorneo(Jugador jugador)
     {
         string? codigo;
@@ -221,7 +176,7 @@ public static class Modulos
             bool existe = Datos.Torneos.Any(t => t.Codigo == codigo); //Existe algun codigo en la lista, 
                                                                         // iagual al que ingreso el usuario
 
-            if (existe)
+            if (!existe)
             {
                 Console.WriteLine("Este Codigo no existe!!!");
                 continue;
@@ -299,14 +254,14 @@ public static class Modulos
         // metodo anterior es el numero uno con la mayor cantidad de puntos, luego va con el dos y luego el 3...
         foreach (Jugador jugador in ranking)
         {
-            Console.WriteLine($"{posicion}. {jugador.Nickname} - {jugador.Puntos} puntos :D");
+            Console.WriteLine($"Puesto #{posicion} Nombre: {jugador.NombreCompleto} - Nickname: {jugador.Nickname} - puntos: {jugador.Puntos}");
             posicion++;
         }
     }
 
     public static void MostrarTercerJugador() //meotodo implementado
     {
-        Console.WriteLine("\n!!!MOSTRAR JUGADOR REGISTRADO!!!");
+        Console.WriteLine("\n!!!MOSTRAR TERCER JUGADOR REGISTRADO!!!");
         //Si no hay mas de 3 jugadores entonces no muestra ningun resultado
         if (Datos.Jugadores.Count < 3)
         {
@@ -315,10 +270,10 @@ public static class Modulos
         }
 
         Jugador jugador = Datos.Jugadores[2];
-        Console.WriteLine($"Nombre: {jugador.NombreCompleto}");
-        Console.WriteLine($"Nickname: {jugador.Nickname}");
-        Console.WriteLine($"Puntos: {jugador.Puntos}");
-        Console.WriteLine($"Clasificación: {jugador.Clasificacion}");
+        Console.WriteLine($"Nombre:         {jugador.NombreCompleto}");
+        Console.WriteLine($"Nickname:       {jugador.Nickname}");
+        Console.WriteLine($"Puntos:         {jugador.Puntos}");
+        Console.WriteLine($"Clasificación:  {jugador.Clasificacion}");
 
     }
 }

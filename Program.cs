@@ -4,14 +4,14 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Ingresa tu nombre de Usuario:");
-string? nombre = Console.ReadLine();
+    string? nombre = Console.ReadLine();
 
-Console.WriteLine($"Nos alegra {nombre} que estés aquí\n");
+    Console.WriteLine($"\nNos alegra que estés aquí {nombre} ;D");
 
 string opcion;
 do
 {
-        opcion = Modulos.MostrarMenu();
+    opcion = Modulos.MostrarMenu();
 
     switch(opcion)
     {
