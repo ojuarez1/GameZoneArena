@@ -2,10 +2,10 @@ using ProyectoTorneo;
 namespace ProyectoTorneo;
 
 public static class Modulos
-{
-    static Dictionary<string, double> torneos = new() //Este es un diccionario de onde se estan tomando 
-                                                        // los precios
-                                                        // segun el codigo que se dijite del tipo de torneo
+{   
+    // Diccionario que almacena el costo de inscripción
+    // de cada tipo de torneo según su código.
+    static Dictionary<string, double> torneos = new() 
     {
         {"T01", 10.00},
         {"T02", 15.00},
@@ -13,6 +13,8 @@ public static class Modulos
         {"T04", 12.00},
         {"T05", 18.00},
     };
+
+    /// Muestra el menú principal y valida la opción ingresada por el usuario.
     public static string MostrarMenu()
     {
         string[] menu =
@@ -44,6 +46,8 @@ public static class Modulos
         return opcion!;
     }
 
+    // Valida que la opción ingresada en el menú sea un número
+    // válido dentro del rango de opciones disponibles.
     public static bool ValidarMenu(string? opcion)
     {
         if(string.IsNullOrWhiteSpace(opcion))
@@ -55,8 +59,11 @@ public static class Modulos
         return numero >= 1 && numero <= 6;
     }
 
+    // Solicita los datos de un jugador, calcula sus costos y puntos,
+    // y lo registra en el sistema.
     public static void RegistrarJugador(string? nombre)
     {
+        // Crea una instancia temporal del jugador
         Jugador jugador = new Jugador();
 
         Console.WriteLine("Registro de jugador");
@@ -67,8 +74,8 @@ public static class Modulos
 
         int cantidadTorneos = SolicitarCantidadTorneos();
 
-        //Inicializando listas de Torneos seleccionados y resultados si gano o solo participo
-        //Inicio
+        // Listas que almacenan los torneos seleccionados
+        // y los resultados obtenidos por el jugador.
         List<string> torneosSeleccionados =  new();
         List<int> resultados = new();
 
@@ -82,14 +89,14 @@ public static class Modulos
             resultados.Add(resultado);
         }
         
-        //Haciendo los calculos y guardandolo en variables
+        // Calcula los valores económicos y deportivos del jugador.
         double subtotal = Calculos.CalcularSubtotal(torneos, torneosSeleccionados);
         double descuento = Calculos.CalcularPorcentajeDescuento(torneosSeleccionados);
         double totalFinal = Calculos.CalcularTotalFinal(subtotal, descuento);
         string clasificacion = Calculos.ObtenerClasificacion(totalFinal);
         int puntos = Calculos.CalcularPuntos(resultados);
 
-        //Creando Jugador
+        // Crea el objeto Jugador con toda la información recopilada.
         jugador = new()
         {
             NombreCompleto = nombreCompleto,
@@ -103,7 +110,8 @@ public static class Modulos
             Puntos = puntos
 
         };
-        //Agregando jugador a estructura de data
+
+        // Agrega el jugador a la lista general del sistema.
         Datos.Jugadores.Add(jugador);
 
         Console.WriteLine("\n'''''' REPORTE ''''''");
@@ -117,12 +125,17 @@ public static class Modulos
 
         Console.WriteLine($"\n{nombre} registró correctamente al jugador {jugador.NombreCompleto}.");
     }
-// Fin
+
+    // Solicita al usuario el nombre completo del jugador
+    // y devuelve el valor ingresado.
     public static string SolicitarNombre()
     {
         Console.WriteLine("Nombre completo: ");
         return Console.ReadLine()!;
     }
+
+    // Solicita un nickname único para el jugador.
+    // No permite nicknames repetidos.
     public static string SolicitarNickname()
     {
         string? nickname;
@@ -131,7 +144,9 @@ public static class Modulos
             Console.WriteLine("Dijite su NickName: ");
             nickname = Console.ReadLine();
 
-            if(Datos.ApodosExistentes.Contains(nickname!)) //Con el signo ! le dices al copilador, confia en mi esto no sera null
+            // El operador ! indica al compilador que el valor
+            // no será nulo en este punto del código.
+            if(Datos.ApodosExistentes.Contains(nickname!))
             {
                 Console.WriteLine("Este NickName ya Existe.");
             }
@@ -143,6 +158,8 @@ public static class Modulos
         }while(true);
     }
 
+    // Solicita la cantidad de torneos que desea registrar el jugador.
+    // Solo permite valores entre 1 y 5.
     public static int SolicitarCantidadTorneos()
     {
         int cantidad;
@@ -157,6 +174,9 @@ public static class Modulos
 
         return cantidad;
     }
+
+    // Muestra los torneos disponibles y valida que el código
+    // ingresado exista y no haya sido seleccionado previamente.
     public static string SolicitarCodigoTorneo(Jugador jugador)
     {
         string? codigo;
@@ -173,9 +193,14 @@ public static class Modulos
             Console.WriteLine("Digite el Codigo de Torneo: ");
             codigo = Console.ReadLine()?.ToUpper();
             
-            bool existe = Datos.Torneos.Any(t => t.Codigo == codigo); //Existe algun codigo en la lista, 
-                                                                        // iagual al que ingreso el usuario
 
+            // Verifica si el código ingresado existe dentro
+            // de la lista de torneos disponibles.
+            bool existe = Datos.Torneos.Any(t => t.Codigo == codigo); 
+            
+                                                             
+            // Evita registrar el mismo torneo más de una vez
+            // para el mismo jugador.
             if (!existe)
             {
                 Console.WriteLine("Este Codigo no existe!!!");
@@ -195,6 +220,8 @@ public static class Modulos
         //return codigo!;
     }
 
+    // Solicita el resultado obtenido por el jugador en un torneo.
+    // Solo permite las opciones "1" (Participó) o "2" (Ganó).
     public static string SolicitarResultado()
     {
         string? resultado;
@@ -211,18 +238,19 @@ public static class Modulos
         return resultado!;
     }
 
-    public static void BusquedaNickname() //meotodo implementado
+    // Busca un jugador por su nickname y muestra
+    // su información si existe.
+    public static void BusquedaNickname() 
     {
         Console.WriteLine("\n!!!BUSCAR JUGADOR!!!");
         Console.Write("Ingrese el nickname: ");
         string? nickname = Console.ReadLine();
 
-        //Busca en la losta de jugadores el primero que encuentre con el nickname que se pasa por consola
-        //Tambien se esta aplicando un ignorecase por si este lleva mayusculas y minusculas
-        //Dame el primer elemento que cumpla con la condicion si no encuentras nada devuelve null
+        // Busca el primer jugador cuyo nickname coincida
+        // con el ingresado, ignorando mayúsculas y minúsculas.
         Jugador? jugador = Datos.Jugadores.FirstOrDefault(j=>j.Nickname.Equals(nickname!, StringComparison.OrdinalIgnoreCase));
 
-        //Si jugador devuelve null
+        // Verifica si el jugador fue encontrado.
         if (jugador == null)
         {
             Console.WriteLine("Jugador no encontrado.");
@@ -236,7 +264,9 @@ public static class Modulos
         Console.WriteLine($"Clasificacion: {jugador.Clasificacion}");
     }
 
-    public static void MostrarRanking() //meotodo implementado
+    // Muestra el ranking de jugadores ordenado
+    // de mayor a menor según sus puntos.
+    public static void MostrarRanking()
     {
         Console.WriteLine("\n!!!RANKING DE JUGADORES!!!");
         if (Datos.Jugadores.Count == 0)
@@ -244,14 +274,14 @@ public static class Modulos
             Console.WriteLine("No existen jugadores registrados");
             return;
         }
-        //Toma todos los jugadores y ordenalos de mayor a menor, segun sus puntos
-        //la lamban lo que hace es asignarle los puntos a cada jugador encontrado y 
-        // de esta manera podes hacer el orden de forma decendente, y el resultado lo retorna en una lista llamada ranking
+        // Ordena la lista de jugadores de forma descendente
+        // utilizando la cantidad de puntos obtenidos.
         List<Jugador> ranking = Datos.Jugadores.OrderByDescending(j => j.Puntos).ToList();
 
         int posicion = 1;
-        //Aqui se recorremos todos los jugadores que estan en la lista ranking, y muestra el primer elemento que por el 
-        // metodo anterior es el numero uno con la mayor cantidad de puntos, luego va con el dos y luego el 3...
+
+        // Recorre la lista ordenada mostrando la posición
+        // de cada jugador dentro del ranking.
         foreach (Jugador jugador in ranking)
         {
             Console.WriteLine($"Puesto #{posicion} Nombre: {jugador.NombreCompleto} - Nickname: {jugador.Nickname} - puntos: {jugador.Puntos}");
@@ -259,7 +289,9 @@ public static class Modulos
         }
     }
 
-    public static void MostrarTercerJugador() //meotodo implementado
+    // Muestra la información del tercer jugador
+    // registrado en el sistema.
+    public static void MostrarTercerJugador()
     {
         Console.WriteLine("\n!!!MOSTRAR TERCER JUGADOR REGISTRADO!!!");
         //Si no hay mas de 3 jugadores entonces no muestra ningun resultado
