@@ -1,5 +1,9 @@
+
+// Representa un torneo disponible dentro del sistema.
+// Almacena el código identificador y el nombre del torneo.
+
 public class Torneo
 {
-    public string? Codigo {get ; set; }
-    public string? Nombre { get; set; }
+    public string? Codigo {get ; set; } // Código único que identifica al torneo.
+    public string? Nombre { get; set; } // Nombre del torneo.
 }

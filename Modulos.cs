@@ -141,16 +141,30 @@ public static class Modulos
     // y devuelve el valor ingresado.
 
     public static string SolicitarNombre()
+{
+    string? nombre;
+
+    do
     {
-        Console.WriteLine("Nombre completo: ");
-        return Console.ReadLine()!;
-    }
+        Console.WriteLine("Nombre completo:");
+        nombre = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(nombre))
+        {
+            Console.WriteLine("El nombre no puede estar vacío.");
+        }
+
+    } while (string.IsNullOrWhiteSpace(nombre));
+
+    return nombre;
+}
 
 
-    // ============================================================================
-    // Solicita un nickname único para el jugador y no permite nicknames repetidos.
+    
+    // Solicita un nickname único para el jugador 
+    // y no permite nicknames repetidos.
 
-    public static string SolicitarNickname() // metodo caso 3
+    public static string SolicitarNickname() 
     {
         string? nickname;
         do
@@ -158,12 +172,17 @@ public static class Modulos
             Console.WriteLine("Dijite su NickName: ");
             nickname = Console.ReadLine();
 
+            
             // El operador ! indica al compilador que el valor
             // no será nulo en este punto del código.
 
             if(Datos.ApodosExistentes.Contains(nickname!))
             {
                 Console.WriteLine("Este NickName ya Existe.");
+            }if (string.IsNullOrWhiteSpace(nickname))
+            {
+                Console.WriteLine("El Nickname no puede estar vacío.");
+                continue;
             }
             else
             {
@@ -258,10 +277,10 @@ public static class Modulos
         return resultado!;
     }
 
-    // Busca un jugador por su nickname y muestra
-    // su información si existe.
+    // ============================================================================
+    // Busca un jugador por su nickname y muestra su información si existe.
 
-    public static void BusquedaNickname() 
+    public static void BusquedaNickname() // metodo caso 3
     {
         Console.WriteLine("\n!!!BUSCAR JUGADOR!!!");
         Console.Write("Ingrese el nickname: ");
