@@ -11,6 +11,7 @@ class Program
     Console.WriteLine($"\nNos alegra que estés aquí {nombre} ;D");
 
     string opcion;
+    
 
 // Mantiene el menú activo hasta que el usuario seleccione la opción de salir
 do
