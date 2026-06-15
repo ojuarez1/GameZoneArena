@@ -146,7 +146,7 @@ public static class Modulos
 
     do
     {
-        Console.WriteLine("Nombre completo:");
+        Console.WriteLine("Ingrese el nombre completo: ");
         nombre = Console.ReadLine();
 
         if (string.IsNullOrWhiteSpace(nombre))
@@ -176,19 +176,21 @@ public static class Modulos
             // El operador ! indica al compilador que el valor
             // no será nulo en este punto del código.
 
-            if(Datos.ApodosExistentes.Contains(nickname!))
+            if(string.IsNullOrWhiteSpace(nickname))
             {
-                Console.WriteLine("Este NickName ya Existe.");
-            }if (string.IsNullOrWhiteSpace(nickname))
-            {
-                Console.WriteLine("El Nickname no puede estar vacío.");
+                Console.WriteLine("El Nickname no puede estar vacio!");
                 continue;
             }
-            else
+            if(Datos.ApodosExistentes.Contains(nickname))
             {
-                Datos.ApodosExistentes.Add(nickname!);
-                return nickname!;
+                Console.WriteLine("Este Nickname ya existe!");
+                continue;
             }
+
+            Datos.ApodosExistentes.Add(nickname);
+            return nickname;
+
+
         }while(true);
     }
 
@@ -203,12 +205,17 @@ public static class Modulos
         {
             Console.WriteLine("Cantidad de torneos (1-5):");
 
-        } while(!int.TryParse(Console.ReadLine(), out cantidad)
+         if(!int.TryParse(Console.ReadLine(), out cantidad)
                 || cantidad < 1
-                || cantidad > 5);
-
+                || cantidad > 5)
+        {
+            Console.WriteLine("Debe ingresar un numero entre 1 y 5");
+            continue;
+        }
+        break;
+        }while (true);
         return cantidad;
-    }
+    }        
 
     // Muestra los torneos disponibles y valida que el código
     // ingresado exista y no haya sido seleccionado previamente.
@@ -228,14 +235,13 @@ public static class Modulos
         
             Console.WriteLine("Digite el Codigo de Torneo: ");
             codigo = Console.ReadLine()?.ToUpper();
-            
+
 
             // Verifica si el código ingresado existe dentro
             // de la lista de torneos disponibles.
 
-            bool existe = Datos.Torneos.Any(t => t.Codigo == codigo); 
-            
-                                                             
+            bool existe = Datos.Torneos.Any(t => t.Codigo == codigo);         
+                                                            
             // Evita registrar el mismo torneo más de una vez
             // para el mismo jugador.
 
@@ -254,8 +260,6 @@ public static class Modulos
 
 
         }while(true);
-
-        //return codigo!;
     }
 
     // Solicita el resultado obtenido por el jugador en un torneo.
@@ -271,6 +275,11 @@ public static class Modulos
             Console.WriteLine("2 = Ganó");
 
             resultado = Console.ReadLine();
+
+            if(resultado!= "1" && resultado != "2")
+            {
+                Console.WriteLine("Debe ingresar unicamente 1 o 2");
+            }
 
         } while(resultado != "1" && resultado != "2");
 

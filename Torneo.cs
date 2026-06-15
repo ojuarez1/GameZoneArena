@@ -4,6 +4,6 @@
 
 public class Torneo
 {
-    public string? Codigo {get ; set; } // Código único que identifica al torneo.
-    public string? Nombre { get; set; } // Nombre del torneo.
+    public string? Codigo; // Código único que identifica al torneo.
+    public string? Nombre; // Nombre del torneo.
 }
